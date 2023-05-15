@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>06-单例模式</title>
+    <style>
+      .modal {
+        height: 200px;
+        width: 200px;
+        line-height: 200px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: yellow;
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open">打开</button>
+    <button id="close">关闭</button>
+
+    <script>
+      /* 
+      单例模式: 保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+    */
+
+      // 闭包实现单例
+      /*   const Singleton = (() => {
+        let instance = null
+
+        function User(name, age) {
+          this.name = name
+          this.age = age
+        }
+
+        return function (name, age) {
+          if (!instance) {
+            instance = new User(name, age)
+          }
+          return instance
+        }
+      })()
+ */
+
+      // class 实现单例
+      /* class Singleton {
+        constructor(name, age) {
+          if (!Singleton.instance) {
+            console.log(this)
+            Singleton.instance = this
+          }
+          return Singleton.instance
+        }
+      }
+      const a = new Singleton('zs', 18)
+      const b = new Singleton('zs11', 1800)
+      console.log(a)
+      console.log(b)
+      console.log(a === b) */
+
+      // 单例案例--- 模态框
+      const Modal = (() => {
+        let instance = null
+
+        return () => {
+          if (!instance) {
+            instance = document.createElement('div')
+            instance.classList.add('modal')
+            instance.textContent = '模态框'
+
+            document.body.appendChild(instance)
+          }
+          return instance
+        }
+      })()
+
+      document.querySelector('#open').onclick = function () {
+        const modal = Modal()
+        modal.style.display = 'block'
+      }
+
+      document.querySelector('#close').onclick = function () {
+        const modal = Modal()
+        modal.style.display = 'none'
+      }
+    </script>
+  </body>
+</html>

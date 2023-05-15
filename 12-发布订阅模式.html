@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12-发布订阅模式</title>
+  </head>
+  <body>
+    <script>
+      class PubSub {
+        constructor() {
+          this.message = {}
+        }
+        subscribe(type, cb) {
+          if (!this.message[type]) {
+            this.message[type] = [cb]
+          } else {
+            this.message[type].push(cb)
+          }
+        }
+        publish(type, data) {
+          this.message[type]?.forEach(t => t(data))
+        }
+        unSubscribe(type, cb) {
+          if (!this.message[type]) return
+          if (cb) {
+            this.message[type] = this.message[type].filter(t => t !== cb)
+          } else {
+            this.message[type] = []
+          }
+        }
+      }
+
+      const pubSub = new PubSub()
+      pubSub.subscribe('A', testA)
+      pubSub.subscribe('A', testB)
+      pubSub.subscribe('B', testC)
+      console.log(pubSub)
+
+      function testA(data) {
+        console.log('testA', data)
+      }
+      function testB(data) {
+        console.log('testB')
+      }
+      function testC(data) {
+        console.log('testC')
+      }
+    </script>
+  </body>
+</html>

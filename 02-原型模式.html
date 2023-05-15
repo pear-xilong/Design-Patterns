@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02-原型模式</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .header {
+        display: flex;
+        width: 500px;
+      }
+
+      .header li {
+        flex: 1;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border: 1px solid black;
+      }
+
+      .box {
+        position: relative;
+        height: 200px;
+      }
+
+      .box li {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 500px;
+        height: 200px;
+        background-color: yellow;
+        display: none;
+      }
+
+      .header .active {
+        background-color: red;
+      }
+
+      .box .active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container1">
+      <ul class="header">
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+      </ul>
+      <ul class="box">
+        <li class="active">111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+        <li>555</li>
+        <li>666</li>
+      </ul>
+    </div>
+
+    <div class="container2">
+      <ul class="header">
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+      </ul>
+      <ul class="box">
+        <li class="active">111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+        <li>555</li>
+        <li>666</li>
+      </ul>
+    </div>
+
+    <script>
+      /*
+            原型模式
+            解决构造器模式的缺点：将方法放到原型对象上
+        */
+      /* var employee1 = {
+          name: 'zhangsan',
+          age: 18,
+        }
+        var employee2 = {
+          name: 'lisi',
+          age: 100,
+        } */
+      // ES5构造函数
+      /* function Employee({ name, age }) {
+          this.name = name
+          this.age = age
+        }
+        Employee.prototype.say = function () {
+          console.log(`我是${this.name},今年${this.age}岁了`)
+        }
+
+        const employee1 = new Employee({ name: 'zhangsan', age: 18 })
+        const employee2 = new Employee({ name: 'lisi', age: 100 })
+        console.log(employee1)
+        console.log(employee2)
+        console.log(employee1.say === employee2.say)
+        employee1.say()
+        employee2.say() */
+
+      // ES6类的写法
+      /* class Employee {
+          constructor({ name, age }) {
+            this.name = name
+            this.age = age
+          }
+          say() {
+            console.log(`我是${this.name},今年${this.age}岁了`)
+          }
+        }
+        const employee1 = new Employee({ name: 'zhangsan', age: 18 })
+        const employee2 = new Employee({ name: 'lisi', age: 100 })
+        console.log(employee1)
+        console.log(employee2)
+        console.log(employee1.say === employee2.say)
+        employee1.say()
+        employee2.say() */
+
+      // 选项卡--ES5构造函数模式
+      /* function Tabs(container, eventType) {
+          this.container = document.querySelector(container)
+          this.headItems = this.container.querySelectorAll('.header > li')
+          this.boxItems = this.container.querySelectorAll('.box > li')
+          this.eventType = eventType
+          console.log(this.headItems, this.boxItems)
+          this.change()
+        }
+        Tabs.prototype.change = function () {
+          this.headItems.forEach((t, i) => {
+            t.addEventListener(this.eventType, () => {
+              this.boxItems.forEach((item, index) => {
+                this.headItems[index].classList.remove('active')
+                item.classList.remove('active')
+              })
+              t.classList.add('active')
+              this.boxItems[i].classList.add('active')
+            })
+          })
+        }
+
+        new Tabs('.container1', 'click')
+        new Tabs('.container2', 'mouseover') */
+
+      // 选项卡--ES6类模式
+      class Tabs {
+        constructor(container, eventType) {
+          this.container = document.querySelector(container)
+          this.headItems = this.container.querySelectorAll('.header > li')
+          this.boxItems = this.container.querySelectorAll('.box > li')
+          this.eventType = eventType
+          this.change()
+        }
+
+        change() {
+          this.headItems.forEach((t, i) => {
+            t.addEventListener(this.eventType, () => {
+              this.boxItems.forEach((item, index) => {
+                this.headItems[index].classList.remove('active')
+                item.classList.remove('active')
+              })
+              t.classList.add('active')
+              this.boxItems[i].classList.add('active')
+            })
+          })
+        }
+      }
+      new Tabs('.container1', 'click')
+      new Tabs('.container2', 'mouseover')
+    </script>
+  </body>
+</html>

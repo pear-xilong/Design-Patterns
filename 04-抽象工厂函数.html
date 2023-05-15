@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04-抽象工厂函数</title>
+  </head>
+  <body>
+    <script>
+      // 抽象工厂概念： 抽象工厂是一个创建其他工厂的工厂，它提供了一种方法，可以将一组具有同一主题的单独的工厂封装起来
+
+      // 基类
+      class User {
+        constructor() {}
+
+        welcome() {
+          console.log('欢迎')
+        }
+
+        showData() {
+          console.log('展示图表')
+        }
+      }
+
+      // 子类
+      class SuperAdmin extends User {
+        constructor() {
+          super()
+          this.role = 'superAdmin'
+          this.pages = ['home', 'news', 'right-manage', 'user-manage', 'edit']
+        }
+        showData() {
+          console.log('SuperAdmin的图表')
+        }
+        addUser() {}
+        addRight() {}
+      }
+
+      class Admin extends User {
+        constructor() {
+          super()
+          this.role = 'admin'
+          this.pages = ['home', 'news']
+        }
+        showData() {
+          console.log('admin的图表')
+        }
+      }
+
+      class Editor extends User {
+        constructor() {
+          super()
+          this.role = 'editor'
+          this.pages = ['home', 'news', 'edit']
+        }
+        showData() {
+          console.log('Editor的图表')
+        }
+        edit() {}
+      }
+
+      function getAbstractUserFactory(role) {
+        switch (role) {
+          case 'superAdmin':
+            return SuperAdmin
+            break
+          case 'admin':
+            return Admin
+            break
+          case 'editor':
+            return Editor
+            break
+        }
+      }
+
+      const UserClass = getAbstractUserFactory('superAdmin')
+      const user = new UserClass()
+      console.log(UserClass)
+      console.log(user)
+    </script>
+  </body>
+</html>

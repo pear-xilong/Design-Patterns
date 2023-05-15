@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08-适配器模式</title>
+  </head>
+  <body>
+    <script>
+      //  适配器模式: 将一个类（对象）的接口（方法或属性）转化成另一个接口，以满足用户需求，使类（对象）之间接口的不兼容问题通过适配器得以解决。
+      //  适配器模式分为类适配器模式和对象适配器模式。
+      //  类适配器模式: 通过继承来实现适配器功能。
+      //  对象适配器模式: 通过组合来实现适配器功能。
+
+      class TencentMap {
+        show() {
+          console.log('调用腾讯的地图')
+        }
+      }
+
+      class BaiduMap {
+        display() {
+          console.log('调用百度的地图')
+        }
+      }
+
+      class TencentMapAdaptive extends TencentMap {
+        constructor() {
+          super()
+        }
+        display() {
+          this.show()
+        }
+      }
+
+      class BaiduMapAdaptive extends BaiduMap {
+        constructor() {
+          super()
+        }
+        show() {
+          this.display()
+        }
+      }
+
+      function renderMap(map) {
+        map.show()
+        map.display()
+      }
+
+      renderMap(new TencentMapAdaptive())
+      renderMap(new BaiduMapAdaptive())
+    </script>
+  </body>
+</html>

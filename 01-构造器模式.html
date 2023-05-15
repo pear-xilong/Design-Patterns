@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01-构造器模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        构造器模式用于创建特定类型的对象，即创建对象的模板，通过new关键字创建对象
+        存在一个问题： 每次创建对象都会创建一次方法，浪费内存
+      */
+      /* var employee1 = {
+        name: 'zhangsan',
+        age: 18,
+      }
+      var employee2 = {
+        name: 'lisi',
+        age: 100,
+      } */
+      function Employee({ name, age }) {
+        this.name = name
+        this.age = age
+
+        this.say = function () {
+          console.log(`我是${this.name},今年${this.age}岁了`)
+        }
+      }
+
+      const employee1 = new Employee({ name: 'zhangsan', age: 18 })
+      const employee2 = new Employee({ name: 'lisi', age: 100 })
+      console.log(employee1)
+      console.log(employee2)
+      console.log(employee1 === employee2)
+      employee1.say()
+      employee2.say()
+      console.log(employee1.say === employee2.say)
+      for (let i = 0; i < 100; i++) {
+        const employee = new Employee({ name: `zhangsan${i}`, age: i })
+        console.log(employee)
+      }
+    </script>
+  </body>
+</html>

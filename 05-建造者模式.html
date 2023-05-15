@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05-建造者模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        建造者模式： 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示
+    */
+
+      class NavBar {
+        init() {
+          console.log('NavBar---init')
+        }
+        getData() {
+          console.log('NavBar---getData')
+          return 'abc'
+        }
+        render() {
+          console.log('NavBar---render')
+        }
+      }
+
+      class List {
+        init() {
+          console.log('List---init')
+        }
+        getData() {
+          console.log('List---getData')
+          return '1111'
+        }
+        render() {
+          console.log('List---render')
+        }
+      }
+
+      class Operator {
+        startBuild(builder) {
+          builder.init()
+          const res = builder.getData()
+          console.log(res)
+          builder.render()
+        }
+      }
+
+      const bar = new NavBar()
+      const list = new List()
+
+      const op = new Operator()
+      op.startBuild(bar)
+      op.startBuild(list)
+    </script>
+  </body>
+</html>

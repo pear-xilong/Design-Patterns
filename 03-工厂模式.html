@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03-工厂模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        工厂函数是什么： 工厂函数是一个函数，它返回一个新的对象，但是不使用new关键字
+
+      */
+      /* const superAdmin = new User('superAdmin', ['home', 'news', 'right-manage', 'user-manage', 'edit'])
+      const admin = new User('admin', ['home', 'news'])
+      const edit = new User('edit', ['home', 'news', 'edit']) */
+      function UserFactory(role) {
+        function User(role, pages) {
+          this.role = role
+          this.pages = pages
+        }
+
+        const UserMap = new Map([
+          [
+            'superAdmin',
+            ['home', 'news', 'right-manage', 'user-manage', 'edit'],
+          ],
+          ['admin', ['home', 'news']],
+          ['editer', ['home', 'news', 'edit']],
+        ])
+        return new User(role, UserMap.get(role))
+
+        /* switch (role) {
+          case 'superAdmin':
+            return new User('superAdmin', [
+              'home',
+              'news',
+              'right-manage',
+              'user-manage',
+              'edit',
+            ])
+            break
+          case 'admin':
+            return new User('admin', ['home', 'news'])
+            break
+          case 'editer':
+            return new User('edit', ['home', 'news', 'edit'])
+            break
+          default:
+            throw new Error('没有该角色信息')
+        } */
+      }
+
+      class User {
+        constructor(role, pages) {
+          this.role = role
+          this.pages = pages
+        }
+        static UserFactory(role) {
+          const UserMap = new Map([
+            [
+              'superAdmin',
+              ['home', 'news', 'right-manage', 'user-manage', 'edit'],
+            ],
+            ['admin', ['home', 'news']],
+            ['editer', ['home', 'news', 'edit']],
+          ])
+          return new User(role, UserMap.get(role))
+        }
+      }
+
+      const user = new UserFactory('admin')
+      const user1 = User.UserFactory('editer')
+      console.log(user)
+      console.log(user1)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10-代理模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+          代理模式： 
+      */
+      const obj = {
+        name: 'zs',
+        age: 18,
+      }
+
+      const p = new Proxy(obj, {
+        get(target, key) {
+          console.log('有人读取了对象中的属性')
+          return target[key]
+        },
+        set(target, key, value) {
+          console.log('有人设置了对象中的属性')
+          target[key] = value
+        },
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>07-装饰器模式</title>
+  </head>
+  <body>
+    <script>
+      // 装饰器模式: 在不改变原对象的基础上，通过对其进行包装拓展，使原有对象可以满足用户的更复杂需求。
+      Function.prototype.before = function (beforeFn) {
+        let _this = this
+
+        return function () {
+          console.log('this', this)
+          // 执行前置函数
+          beforeFn.apply(this, arguments)
+          // 执行原先函数
+          return _this.apply(this, arguments)
+        }
+      }
+      Function.prototype.after = function (afterFn) {
+        let _this = this
+
+        return function () {
+          // 执行原先函数
+          const res = _this.apply(this, arguments)
+          // 执行后置函数
+          afterFn.apply(this, arguments)
+
+          return res
+        }
+      }
+
+      function test() {
+        console.log('11111')
+        return 'test'
+      }
+
+      const test1 = test
+        .before(() => {
+          console.log('00000')
+        })
+        .after(() => {
+          console.log('22222')
+        })
+      console.log(test1())
+    </script>
+  </body>
+</html>

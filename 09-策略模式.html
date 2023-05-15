@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>09-策略模式</title>
+    <style>
+      .container {
+        list-style: none;
+      }
+      .red {
+        background-color: red;
+      }
+      .yellow {
+        background-color: yellow;
+      }
+      .skyblue {
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="container"></ul>
+
+    <script>
+      /* 
+      策略模式: 定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。
+      策略模式的核心思想是将算法的使用与算法的实现分离开来。
+    */
+
+      /*  function getSalary(level, salary) {
+        if (level === 'A') {
+          return salary * 4
+        } else if (level === 'B') {
+          return salary * 3
+        } else if (level === 'C') {
+          return salary * 2
+        } else if (level === 'D') {
+          return salary * 1
+        }
+      } */
+
+      /* const salaryMap = {
+        S: salary => salary * 6,
+        A: salary => salary * 4,
+        B: salary => salary * 3,
+        C: salary => salary * 2,
+        D: salary => salary * 1,
+      }
+
+      function getSalary(level, salary) {
+        return salaryMap[level](salary)
+      }
+
+      console.log(getSalary('B', 100)) */
+      var list = [
+        {
+          title: '男人看了沉默',
+          type: 1,
+        },
+        {
+          title: '震惊',
+          type: 2,
+        },
+        {
+          title: 'kerwin来了',
+          type: 3,
+        },
+        {
+          title: 'tiechui离开了',
+          type: 2,
+        },
+      ]
+
+      const listMap = {
+        1: {
+          content: '待审核',
+          className: 'red',
+        },
+        2: {
+          content: '已通过',
+          className: 'yellow',
+        },
+        3: {
+          content: '待发布',
+          className: 'skyblue',
+        },
+        4: {
+          content: 'aaa',
+          className: 'skyblue',
+        },
+      }
+
+      document.querySelector('.container').innerHTML = list
+        .map(
+          t =>
+            `<li>${t.title} <span class="${listMap[t.type].className}">${
+              listMap[t.type].content
+            }</span></li>`
+        )
+        .join('')
+    </script>
+  </body>
+</html>
