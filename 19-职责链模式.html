@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>19-职责链模式</title>
+  </head>
+  <body>
+    <input type="text" id="inp" />
+    <button id="btn">注册</button>
+    <script>
+      let key = ''
+      inp.onchange = function (e) {
+        key = e.target.value
+      }
+      btn.onclick = function (e) {
+        chain.check()
+        /* if (!key) {
+          console.log('输入不能为空')
+          return
+        } else {
+          if (!Number(key)) {
+            console.log('只能输入数字')
+          } else {
+            if (key.length < 6) {
+              console.log('输入字符数不能小于6个')
+            }
+          }
+        } */
+      }
+
+      function CheckEmpty() {
+        if (!key) {
+          console.log('输入不能为空')
+          return
+        }
+        return 'next'
+      }
+
+      function CheckNumber() {
+        if (!Number(key)) {
+          console.log('只能输入数字')
+          return
+        }
+        return 'next'
+      }
+
+      function CheckLength() {
+        if (key.length < 6) {
+          console.log('输入字符数不能小于6个')
+          return
+        }
+        return 'next'
+      }
+
+      class Chain {
+        constructor(fn) {
+          this.checkFn = fn
+          this.nextFn = null
+        }
+        check() {
+          this.checkFn() === 'next' ? this.nextFn.check() : null
+        }
+        addNextFn(fn) {
+          this.nextFn = new Chain(fn)
+          return this.nextFn
+        }
+        end() {
+          this.nextFn = {
+            check: () => 'end',
+          }
+        }
+      }
+
+      const chain = new Chain(CheckEmpty)
+      chain.addNextFn(CheckNumber).addNextFn(CheckLength).end()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>17-模板模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      模板方法模式由两部分组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，包括实现一些公共方法以及封装子类中所有方法的执行顺序。子类通过继承这个抽象类，也继承了整个算结构，并且可以选择重写父类的方法。
+    */
+
+      class F {
+        constructor() {}
+        init() {
+          this.getData()
+          this.render()
+        }
+        getData() {
+          throw new Error('此方法为抽象方法, 需要子类实现')
+        }
+        render() {
+          console.log('渲染页面')
+        }
+      }
+
+      class Child extends F {
+        constructor(options = {}) {
+          super()
+          this.abc = 123
+          this.getData = options.getData
+        }
+      }
+
+      const child = new Child({
+        getData() {
+          console.log('获取数据1')
+        },
+      })
+      child.init()
+
+      const child2 = new Child({
+        getData() {
+          console.log('获取数据2')
+        },
+      })
+      child2.init()
+    </script>
+  </body>
+</html>

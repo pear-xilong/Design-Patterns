@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>14-桥接模式</title>
+  </head>
+  <body>
+    <script>
+      /* function Aodi(engine) {
+        this.engine = engine
+      }
+      Aodi.prototype.platform = function () {
+        console.log('平台1')
+      }
+      Aodi.prototype.loadEngine = function () {
+        this.engine.run()
+      }
+
+      function Engine1() {
+        this.run = function () {
+          console.log('发动机1')
+        }
+      }
+      function Engine2() {
+        this.run = function () {
+          console.log('发动机2')
+        }
+      }
+
+      const aodi1 = new Aodi(new Engine1())
+      const aodi2 = new Aodi(new Engine2())
+      aodi1.loadEngine()
+      aodi2.loadEngine() */
+
+      const Animations = {
+        bounce: {
+          show(ele) {
+            console.log(ele, '弹跳显示')
+          },
+          hide(ele) {
+            console.log(ele, '弹跳隐藏')
+          },
+        },
+        slide: {
+          show(ele) {
+            console.log(ele, '滑动显示')
+          },
+          hide(ele) {
+            console.log(ele, '滑动隐藏')
+          },
+        },
+      }
+
+      function Message(ele, animation) {
+        this.ele = ele
+        this.animation = animation
+      }
+      Message.prototype.show = function () {
+        this.animation.show(this.ele)
+      }
+
+      Message.prototype.hide = function () {
+        this.animation.hide(this.ele)
+      }
+      const msg = new Message('div', Animations.slide)
+      console.log(msg)
+      msg.show()
+      msg.hide()
+    </script>
+  </body>
+</html>

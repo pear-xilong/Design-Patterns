@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15-组合模式</title>
+  </head>
+  <body>
+    <!-- <ul>
+      <li>
+        用户管理
+        <ul>
+          <li>添加用户</li>
+          <li>编辑用户</li>
+        </ul>
+      </li>
+    </ul> -->
+    <div id="root"></div>
+
+    <script>
+      const div = document.querySelector('#root')
+      function Folder(folder) {
+        this.folder = folder
+        this.list = [] // 用于存储子文件夹 | 子文件
+      }
+      Folder.prototype.add = function (file) {
+        this.list.push(file)
+      }
+      Folder.prototype.scan = function () {
+        if (this.folder !== 'root') {
+          var ulParent = document.createElement('ul')
+          var liParent = document.createElement('li')
+          var ulChild = document.createElement('ul')
+          liParent.textContent = this.folder
+          liParent.appendChild(ulChild)
+          ulParent.appendChild(liParent)
+          div.appendChild(ulParent)
+        }
+        console.log('扫描文件夹', this.folder)
+        for (let i = 0; i < this.list.length; i++) {
+          this.list[i].scan(ulChild)
+        }
+      }
+
+      function File(file) {
+        this.file = file
+      }
+      File.prototype.scan = function (ulChild) {
+        console.log('扫描文件', this.file)
+        var liChild = document.createElement('li')
+        liChild.textContent = this.file
+        ulChild.appendChild(liChild)
+      }
+
+      const root = new Folder('root')
+      const html = new Folder('用户管理')
+      const css = new Folder('权限管理')
+      const js = new Folder('版本管理')
+
+      const html4 = new File('新增用户')
+      const html5 = new File('编辑用户')
+      const css2 = new File('添加权限')
+      const css3 = new File('编辑权限')
+      const es5 = new File('切换版本')
+      const es6 = new File('新增版本')
+
+      root.add(html)
+      root.add(css)
+      root.add(js)
+
+      html.add(html4)
+      html.add(html5)
+      css.add(css2)
+      css.add(css3)
+      js.add(es5)
+      js.add(es6)
+
+      root.scan()
+    </script>
+  </body>
+</html>
