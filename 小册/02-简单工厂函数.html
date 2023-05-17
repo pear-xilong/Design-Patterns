@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02-简单工厂函数</title>
+  </head>
+  <body>
+    <script>
+      /* function Coder(name, age) {
+      this.name = name
+      this.age = age
+      this.career = 'coder'
+      this.work = ['写代码', '写系统', '改bug']
+    } */
+      /* function ProductManage(name, age) {
+      this.name = name
+      this.age = age
+      this.career = 'product manager'
+      this.work = ['订会议室', '写PRD', '催更']
+    } */
+      /* function Factory(name, age, career) {
+      switch (career) {
+        case 'coder':
+          return new Coder(name, age)
+          break
+        case 'product manager':
+          return new ProductManage(name, age)
+          break
+      }
+    } */
+
+      function User(name, age, career, work) {
+        this.name = name
+        this.age = age
+        this.career = career
+        this.work = work
+      }
+
+      function Factory(name, age, career) {
+        let work = null
+        switch (career) {
+          case 'coder':
+            work = ['写代码', '写系统', '改bug']
+            break
+          case 'product manager':
+            work = ['订会议室', '写PRD', '催更']
+            break
+          case 'boss':
+            work = ['喝茶', '看报', '见客户']
+            break
+        }
+        return new User(name, age, career, work)
+      }
+
+      const boss = new Factory('zhangsan', 18, 'boss')
+      console.log(boss)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01-构造器模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      在创建一个user过程中，谁变了，谁不变？
+        很明显，变的是每个user的姓名、年龄、工种这些值，这是用户的个性，不变的是每个员工都具备姓名、年龄、工种这些属性，这是用户的共性。
+
+      那么构造器做了什么？
+        构造器是不是将 name、age、career 赋值给对象的过程封装，确保了每个对象都具备这些属性，确保了共性的不变，同时将 name、age、career 各自的取值操作开放，确保了个性的灵活？
+      */
+      const lilei = {
+        name: 'lilei',
+        age: 18,
+        career: 'coder',
+      }
+
+      const zhangsan = {
+        name: 'zhangsan',
+        age: 25,
+        career: 'product manager',
+      }
+
+      function User(name, age, career) {
+        this.name = name
+        this.age = age
+        this.career = career
+      }
+
+      const user = new User(name, age, career)
+    </script>
+  </body>
+</html>

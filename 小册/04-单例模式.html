@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04-单例模式</title>
+  </head>
+  <body>
+    <script>
+      /*
+         单例模式
+       */
+      /* class NotSingleton {}
+
+       const a1 = new NotSingleton()
+       const a2 = new NotSingleton()
+       console.log(a1 === a2) */
+
+      /* class Singleton {
+         constructor() {
+           if (!Singleton.instance) {
+             Singleton.instance = this
+           }
+           return Singleton.instance
+         }
+       }
+
+       const s1 = new Singleton()
+       const s2 = new Singleton()
+       console.log(s1 === s2) */
+      /* function Singleton() {}
+      Singleton.getInstance = (function () {
+        let instance = null
+        return () => {
+          if (!instance) {
+            instance = new Singleton()
+          }
+          return instance
+        }
+      })()
+
+      const s1 = Singleton.getInstance()
+      const s2 = Singleton.getInstance()
+      console.log(s1 === s2) */
+      /* class Storage {
+        constructor() {
+          if (!Storage.instance) {
+            Storage.instance = this
+          }
+          return Storage.instance
+        }
+        setItem(key, value) {
+          return localStorage.setItem(key, value)
+        }
+        getItem(key) {
+          return localStorage.getItem(key)
+        }
+      } */
+
+      function StorageBase() {}
+      StorageBase.prototype.setItem = function (key, value) {
+        return localStorage.setItem(key, value)
+      }
+      StorageBase.prototype.getItem = function (key) {
+        return localStorage.getItem(key)
+      }
+
+      const Storage = (function () {
+        let instance = null
+        return () => {
+          if (!instance) {
+            instance = new StorageBase()
+          }
+          return instance
+        }
+      })()
+      const storage = Storage()
+      const storage2 = Storage()
+      storage.setItem('name', '张三')
+      console.log(storage.getItem('name'))
+      console.log(storage2.getItem('name'))
+    </script>
+  </body>
+</html>
