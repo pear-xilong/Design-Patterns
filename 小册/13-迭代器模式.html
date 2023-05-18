@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>13-迭代器模式</title>
+  </head>
+  <body>
+    <script>
+      const arr = [1, 2, 3, 4]
+      /*       const iterator = arr[Symbol.iterator]()
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next()) */
+      // 通过调用iterator，拿到迭代器对象
+      /* const iterator = arr[Symbol.iterator]()
+
+      // 初始化一个迭代结果
+      let now = { done: false }
+
+      // 循环往外迭代成员
+      while (!now.done) {
+        now = iterator.next()
+        if (!now.done) {
+          console.log(`现在遍历到了${now.value}`)
+        }
+      } */
+      /* function* iteratorGererator() {
+        yield 111
+        yield 222
+        yield 333
+      }
+
+      const iterator = iteratorGererator()
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next()) */
+
+      function iteratorGenerator(list) {
+        let index = 0
+        const len = list.length
+
+        return {
+          next: function () {
+            const done = index >= len
+            const value = !done ? list[index++] : undefined
+            return {
+              done,
+              value,
+            }
+          },
+        }
+      }
+
+      const iterator = new iteratorGenerator([1, 2, 3])
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+    </script>
+  </body>
+</html>

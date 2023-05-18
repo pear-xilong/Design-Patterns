@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08-代理模式-虚拟代理</title>
+  </head>
+  <body>
+    <script>
+      /* class PreloadImage {
+        // 占位图的url地址
+        static LOADING_URL = 'xxxxxx'
+        constructor(imgNode) {
+          this.imgNode = imgNode
+        }
+
+        setSrc() {
+          this.imgNode.src = PreloadImage.LOADING_URL
+
+          const img = new Image()
+          img.onload = function () {
+            this.imgNode.src = targetUrl
+          }
+          img.src = targetUrl
+        }
+      } */
+
+      class PreloadImage {
+        constructor(imgNode) {
+          this.imgNode = imgNode
+        }
+        setSrc(targetUrl) {
+          this.imgNode.src = targetUrl
+        }
+      }
+
+      class ProxyImage {
+        // 占位图的url地址
+        static LOADING_URL = 'xxxxxx'
+        constructor(preloadImage) {
+          this.preloadImage = preloadImage
+        }
+        preload() {
+          this.preloadImage.setSrc(ProxyImage.LOADING_URL)
+          const virtualImg = new Image()
+          virtualImg.onload = function () {
+            this.preloadImage.setSrc(targetUrl)
+          }
+          virtualImg.src = targetUrl
+        }
+      }
+    </script>
+  </body>
+</html>

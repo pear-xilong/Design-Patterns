@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12-发布订阅模式</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      发布订阅模式实现 eventbus
+    */
+
+      class EventBus {
+        constructor() {
+          this.message = {}
+        }
+
+        $on(type, cb) {
+          if (!cb) return
+          if (!this.message[type]) {
+            this.message[type] = [cb]
+          } else {
+            this.message[type].push(cb)
+          }
+        }
+
+        $off(type, cb) {
+          if (!this.message[type]) return
+          this.message[type] = this.message[type].filter(t => t !== cb)
+        }
+
+        $emit(type) {
+          if (!this.message[type]) return
+          this.message[type].length && this.message[type].forEach(t => t())
+        }
+
+        $once(type, cb) {
+          // 对回调函数进行包装，使其执行完毕自动被移除
+          const wrapper = (...args) => {
+            cb(...args)
+            this.$off(type, wrapper)
+          }
+          this.$on(type, wrapper)
+        }
+      }
+
+      const eventbus = new EventBus()
+      const test = () => {
+        console.log(444)
+      }
+      eventbus.$on('click', () => {
+        console.log(123)
+      })
+      eventbus.$on('click', test)
+      eventbus.$off('click', test)
+      eventbus.$emit('click')
+      console.log(eventbus)
+    </script>
+  </body>
+</html>

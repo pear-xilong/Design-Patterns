@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08-代理模式-事件代理</title>
+  </head>
+  <body>
+    <ul>
+      <li>a1</li>
+      <li>a2</li>
+      <li>a3</li>
+      <li>a4</li>
+      <li>a5</li>
+    </ul>
+
+    <script>
+      /* const lis = document.querySelectorAll('ul li')
+      lis.forEach(t => {
+        t.onclick = function () {
+          console.log(`我是${t.innerText}`)
+        }
+      }) */
+      const ul = document.querySelector('ul')
+      ul.onclick = function (e) {
+        if (e.target.tagName === 'LI') {
+          console.log(e.target.innerText)
+        }
+      }
+    </script>
+  </body>
+</html>
